@@ -46,61 +46,72 @@ export default function Livros() {
 
   return (
     <div className="page-wrapper">
-      <Link href="/" className="back-link">← Voltar ao menu</Link>
+      <Link href="/" className="back-link">← Voltar ao Saguão Principal</Link>
 
       <div className="page-header">
-        <h1>Cadastrar Livro</h1>
-        <p>Adicione um novo título ao acervo da biblioteca</p>
+        <h1>Registrar Novo Tomo</h1>
+        <p>Inscreva um novo volume nos arquivos encantados da biblioteca</p>
       </div>
 
       <div className="card">
+        {/* Decorative corner runes */}
+        <div style={{
+          position: 'absolute', top: 12, right: 16,
+          fontFamily: 'serif', fontSize: 18,
+          color: 'rgba(201,168,76,0.15)',
+          letterSpacing: 4, pointerEvents: 'none',
+          userSelect: 'none',
+        }}>
+          ᚱ ᚢ ᚾ ᚨ
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <label htmlFor="titulo">Título</label>
+            <label htmlFor="titulo">Título do Volume</label>
             <input
               id="titulo" name="titulo" type="text"
               value={form.titulo} onChange={handleChange}
-              placeholder="Ex: Dom Casmurro"
+              placeholder="Ex: Animais Fantásticos e Onde Habitam"
             />
           </div>
 
           <div className="field">
-            <label htmlFor="autor">Autor</label>
+            <label htmlFor="autor">Autor ou Bruxo Escriba</label>
             <input
               id="autor" name="autor" type="text"
               value={form.autor} onChange={handleChange}
-              placeholder="Ex: Machado de Assis"
+              placeholder="Ex: Newt Scamander"
             />
           </div>
 
           <div className="field">
-            <label htmlFor="genero">Gênero</label>
+            <label htmlFor="genero">Categoria Mágica</label>
             <input
               id="genero" name="genero" type="text"
               value={form.genero} onChange={handleChange}
-              placeholder="Ex: Romance"
+              placeholder="Ex: Criaturas Mágicas, Poções, Feitiços..."
             />
           </div>
 
           <div className="field">
-            <label htmlFor="quantidade">Quantidade em estoque</label>
+            <label htmlFor="quantidade">Cópias no Acervo</label>
             <input
               id="quantidade" name="quantidade" type="number"
               value={form.quantidade} onChange={handleChange}
               placeholder="Ex: 5" min={1}
             />
-            <p className="helper-text">Número de cópias físicas disponíveis</p>
+            <p className="helper-text">Número de exemplares físicos disponíveis nas prateleiras</p>
           </div>
 
           {status && (
             <div className={`alert ${status.type === 'success' ? 'alert-success' : 'alert-error'}`}>
-              <span>{status.type === 'success' ? '✓' : '!'}</span>
+              <span>{status.type === 'success' ? '✦' : '⚠'}</span>
               <span>{status.msg}</span>
             </div>
           )}
 
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Cadastrando...' : 'Cadastrar Livro'}
+            {loading ? 'Inscrevendo nos Arquivos...' : '✦ Registrar Volume'}
           </button>
         </form>
       </div>

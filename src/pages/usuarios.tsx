@@ -41,35 +41,46 @@ export default function Usuarios() {
 
   return (
     <div className="page-wrapper">
-      <Link href="/" className="back-link">← Voltar ao menu</Link>
+      <Link href="/" className="back-link">← Voltar ao Saguão Principal</Link>
 
       <div className="page-header">
-        <h1>Cadastrar Usuário</h1>
-        <p>Adicione um novo leitor ao sistema da biblioteca</p>
+        <h1>Inscrever Novo Leitor</h1>
+        <p>Registre um estudante ou bruxo nos pergaminhos da biblioteca</p>
       </div>
 
       <div className="card">
+        {/* Decorative rune top-right */}
+        <div style={{
+          position: 'absolute', top: 12, right: 16,
+          fontFamily: 'serif', fontSize: 18,
+          color: 'rgba(201,168,76,0.15)',
+          letterSpacing: 4, pointerEvents: 'none',
+          userSelect: 'none',
+        }}>
+          ᚹ ᛁ ᛉ
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <label htmlFor="nome">Nome completo</label>
+            <label htmlFor="nome">Nome Completo</label>
             <input
               id="nome" name="nome" type="text"
               value={form.nome} onChange={handleChange}
-              placeholder="Ex: Ana Souza"
+              placeholder="Ex: Hermione Granger"
             />
           </div>
 
           <div className="field">
-            <label htmlFor="email">E-mail</label>
+            <label htmlFor="email">Coruja — Endereço de Correspondência</label>
             <input
               id="email" name="email" type="email"
               value={form.email} onChange={handleChange}
-              placeholder="Ex: ana@email.com"
+              placeholder="Ex: hermione@hogwarts.co.uk"
             />
           </div>
 
           <div className="field">
-            <label htmlFor="telefone">Telefone</label>
+            <label htmlFor="telefone">Número de Contato</label>
             <input
               id="telefone" name="telefone" type="text"
               value={form.telefone} onChange={handleChange}
@@ -79,13 +90,13 @@ export default function Usuarios() {
 
           {status && (
             <div className={`alert ${status.type === 'success' ? 'alert-success' : 'alert-error'}`}>
-              <span>{status.type === 'success' ? '✓' : '!'}</span>
+              <span>{status.type === 'success' ? '✦' : '⚠'}</span>
               <span>{status.msg}</span>
             </div>
           )}
 
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Cadastrando...' : 'Cadastrar Usuário'}
+            {loading ? 'Inscrevendo nos Pergaminhos...' : '✦ Registrar Leitor'}
           </button>
         </form>
       </div>

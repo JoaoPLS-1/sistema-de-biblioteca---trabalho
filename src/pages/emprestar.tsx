@@ -61,25 +61,25 @@ export default function Emprestar() {
 
   return (
     <div className="page-wrapper">
-      <Link href="/" className="back-link">← Voltar ao menu</Link>
+      <Link href="/" className="back-link">← Voltar ao Saguão Principal</Link>
 
       <div className="page-header">
-        <h1>Realizar Empréstimo</h1>
-        <p>Selecione o usuário e os livros para o empréstimo</p>
+        <h1>Conceder Empréstimo</h1>
+        <p>Autorize a retirada de volumes do acervo encantado</p>
       </div>
 
       <div className="card">
         <form onSubmit={handleSubmit}>
 
-          {/* Usuário */}
+          {/* Leitor */}
           <div className="field">
-            <label htmlFor="usuario">Usuário</label>
+            <label htmlFor="usuario">Leitor Autorizado</label>
             <select
               id="usuario"
               value={usuarioId}
               onChange={e => { setUsuarioId(e.target.value); setStatus(null); }}
             >
-              <option value="">— Selecione um usuário —</option>
+              <option value="">— Selecione um Estudante ou Bruxo —</option>
               {usuarios.map(u => (
                 <option key={u.id} value={u.id}>{u.nome} · {u.email}</option>
               ))}
@@ -88,11 +88,12 @@ export default function Emprestar() {
 
           {/* Data */}
           <div className="field">
-            <label htmlFor="data">Data do Empréstimo</label>
+            <label htmlFor="data">Data de Retirada</label>
             <input
               id="data" type="date"
               value={dataEmprestimo}
               onChange={e => setDataEmprestimo(e.target.value)}
+              style={{ colorScheme: 'dark' }}
             />
           </div>
 
@@ -101,12 +102,20 @@ export default function Emprestar() {
           {/* Livros */}
           <div className="field" style={{ marginBottom: 0 }}>
             <label>
-              Livros Disponíveis
+              Volumes Disponíveis no Acervo
               {livrosSelecionados.length > 0 && (
                 <span style={{
-                  marginLeft: 8, background: 'var(--accent)', color: '#fff',
-                  fontSize: 11, fontWeight: 700, padding: '2px 8px',
-                  borderRadius: 99, textTransform: 'none', letterSpacing: 0,
+                  marginLeft: 10,
+                  background: 'rgba(201,168,76,0.2)',
+                  color: '#c9a84c',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  padding: '2px 10px',
+                  borderRadius: 2,
+                  border: '1px solid rgba(201,168,76,0.3)',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  fontFamily: "'Cinzel', serif",
                 }}>
                   {livrosSelecionados.length} selecionado{livrosSelecionados.length > 1 ? 's' : ''}
                 </span>
@@ -114,13 +123,11 @@ export default function Emprestar() {
             </label>
 
             {livrosDisponiveis.length === 0 ? (
-              <div className="empty-state" style={{ padding: '24px', textAlign: 'center', marginTop: 8 }}>
-                <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>
-                  Nenhum livro disponível no momento.
-                </p>
+              <div className="empty-state" style={{ padding: '28px', marginTop: 8 }}>
+                <p>Nenhum volume disponível nas prateleiras no momento.</p>
               </div>
             ) : (
-              <div className="check-grid" style={{ marginTop: 8 }}>
+              <div className="check-grid" style={{ marginTop: 10 }}>
                 {livrosDisponiveis.map(l => {
                   const checked = livrosSelecionados.includes(l.id);
                   const disponiveis = l.quantidade - l.qtdEmprestados;
@@ -151,14 +158,14 @@ export default function Emprestar() {
           </div>
 
           {status && (
-            <div className={`alert ${status.type === 'success' ? 'alert-success' : 'alert-error'}`} style={{ marginTop: 20 }}>
-              <span>{status.type === 'success' ? '✓' : '!'}</span>
+            <div className={`alert ${status.type === 'success' ? 'alert-success' : 'alert-error'}`} style={{ marginTop: 22 }}>
+              <span>{status.type === 'success' ? '✦' : '⚠'}</span>
               <span>{status.msg}</span>
             </div>
           )}
 
-          <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: 24 }}>
-            {loading ? 'Processando...' : 'Confirmar Empréstimo'}
+          <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: 26 }}>
+            {loading ? 'Registrando nos Pergaminhos...' : '✦ Confirmar Empréstimo'}
           </button>
         </form>
       </div>

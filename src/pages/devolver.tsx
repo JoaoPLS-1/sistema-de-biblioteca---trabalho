@@ -88,31 +88,44 @@ export default function Devolver() {
 
   return (
     <div className="page-wrapper-wide">
-      <Link href="/" className="back-link">← Voltar ao menu</Link>
+      <Link href="/" className="back-link">← Voltar ao Saguão Principal</Link>
 
       <div className="page-header">
-        <h1>Realizar Devolução</h1>
-        <p>Selecione o empréstimo e os livros que estão sendo devolvidos</p>
+        <h1>Registrar Devolução</h1>
+        <p>Selecione o empréstimo e os volumes a serem recolhidos às prateleiras</p>
       </div>
 
       {emprestimos.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">📭</div>
-          <p>Nenhum empréstimo ativo no momento.</p>
-          <p style={{ fontSize: 13, marginTop: 8 }}>
-            <Link href="/emprestar" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
-              Realizar um empréstimo →
+          <p>Nenhum empréstimo ativo nos registros da biblioteca.</p>
+          <p style={{ fontSize: 13.5, marginTop: 10, fontFamily: "'IM Fell English', serif", fontStyle: 'italic' }}>
+            <Link href="/emprestar" style={{ color: 'rgba(201,168,76,0.8)', textDecoration: 'none' }}>
+              Conceder um novo empréstimo →
             </Link>
           </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div style={{ display: 'grid', gridTemplateColumns: emprestimoSelecionado ? '1fr 1fr' : '1fr', gap: 16 }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: emprestimoSelecionado ? '1fr 1fr' : '1fr',
+            gap: 18,
+            alignItems: 'flex-start',
+          }}>
 
-            {/* Lista de empréstimos ativos */}
+            {/* ── Empréstimos Ativos ── */}
             <div>
-              <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 10 }}>
-                Empréstimos Ativos
+              <p style={{
+                fontFamily: "'Cinzel', serif",
+                fontSize: 10.5,
+                fontWeight: 700,
+                color: 'rgba(201,168,76,0.7)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.14em',
+                marginBottom: 12,
+              }}>
+                Empréstimos em Aberto
               </p>
               <div className="check-grid">
                 {emprestimos.map(emp => {
@@ -122,26 +135,55 @@ export default function Devolver() {
                       key={emp.id}
                       onClick={() => handleSelectEmprestimo(emp.id)}
                       style={{
-                        padding: '14px 16px',
-                        background: selected ? 'var(--accent-light)' : 'var(--bg-card)',
-                        border: `1.5px solid ${selected ? 'var(--accent)' : 'var(--border)'}`,
-                        borderRadius: 'var(--radius-sm)',
+                        padding: '16px 18px',
+                        background: selected
+                          ? 'linear-gradient(145deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.06) 100%)'
+                          : 'rgba(245,234,214,0.03)',
+                        border: `1px solid ${selected ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.15)'}`,
+                        borderRadius: 3,
                         cursor: 'pointer',
-                        transition: 'all 0.12s',
-                        boxShadow: selected ? '0 0 0 2px rgba(124,79,36,0.12)' : 'var(--shadow-sm)',
+                        transition: 'all 0.15s',
+                        boxShadow: selected ? '0 0 16px rgba(201,168,76,0.08)' : 'none',
+                      }}
+                      onMouseEnter={e => {
+                        if (!selected) {
+                          (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,76,0.4)';
+                          (e.currentTarget as HTMLElement).style.background = 'rgba(245,234,214,0.05)';
+                        }
+                      }}
+                      onMouseLeave={e => {
+                        if (!selected) {
+                          (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,76,0.15)';
+                          (e.currentTarget as HTMLElement).style.background = 'rgba(245,234,214,0.03)';
+                        }
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-                        <span style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-primary)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 7 }}>
+                        <span style={{
+                          fontFamily: "'Crimson Text', serif",
+                          fontWeight: 600,
+                          fontSize: 15,
+                          color: selected ? '#c9a84c' : '#d4b896',
+                        }}>
                           {getNomeUsuario(emp.usuarioId)}
                         </span>
                         <span className="badge badge-active">ativo</span>
                       </div>
-                      <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>
+                      <div style={{
+                        fontFamily: "'IM Fell English', serif",
+                        fontStyle: 'italic',
+                        fontSize: 12.5,
+                        color: 'rgba(138,106,66,0.7)',
+                        marginBottom: 5,
+                      }}>
                         Retirada: {emp.dataEmprestimo}
                       </div>
-                      <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-                        {emp.livrosIds.length} livro{emp.livrosIds.length > 1 ? 's' : ''}:{' '}
+                      <div style={{
+                        fontFamily: "'Crimson Text', serif",
+                        fontSize: 13,
+                        color: 'rgba(212,184,150,0.7)',
+                      }}>
+                        {emp.livrosIds.length} volume{emp.livrosIds.length > 1 ? 's' : ''}:{' '}
                         {emp.livrosIds.slice(0, 2).map(id => getNomeLivro(id)).join(', ')}
                         {emp.livrosIds.length > 2 ? ` +${emp.livrosIds.length - 2}` : ''}
                       </div>
@@ -151,26 +193,37 @@ export default function Devolver() {
               </div>
             </div>
 
-            {/* Painel de devolução */}
+            {/* ── Painel de devolução ── */}
             {emprestimoSelecionado && (
               <div className="card" style={{ alignSelf: 'flex-start' }}>
-                <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 12 }}>
-                  Livros para Devolver
+                <p style={{
+                  fontFamily: "'Cinzel', serif",
+                  fontSize: 10.5,
+                  fontWeight: 700,
+                  color: 'rgba(201,168,76,0.7)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.14em',
+                  marginBottom: 14,
+                }}>
+                  Volumes a Recolher
                 </p>
-                <div className="check-grid" style={{ marginBottom: 16 }}>
+                <div className="check-grid" style={{ marginBottom: 18 }}>
                   {emprestimoSelecionado.livrosIds.map(livroId => {
                     const checked = livrosSelecionados.includes(livroId);
                     return (
                       <label
                         key={livroId}
                         className={`check-card ${checked ? 'checked' : ''}`}
-                        style={checked ? { borderColor: '#2d7a4f', background: '#edfaf0' } : {}}
+                        style={checked ? {
+                          borderColor: 'rgba(142,212,168,0.55)',
+                          background: 'rgba(26,92,54,0.15)',
+                        } : {}}
                       >
                         <input
                           type="checkbox"
                           checked={checked}
                           onChange={() => toggleLivro(livroId)}
-                          style={{ accentColor: '#2d7a4f' }}
+                          style={{ accentColor: '#8ed4a8' }}
                         />
                         <div className="check-card-body">
                           <div className="check-card-title">{getNomeLivro(livroId)}</div>
@@ -182,14 +235,24 @@ export default function Devolver() {
                 </div>
 
                 {livrosSelecionados.length === emprestimoSelecionado.livrosIds.length && (
-                  <p className="helper-text" style={{ marginBottom: 12, color: '#2d7a4f', fontWeight: 500 }}>
-                    ✓ Todos os livros selecionados — empréstimo será concluído
+                  <p style={{
+                    fontFamily: "'IM Fell English', serif",
+                    fontStyle: 'italic',
+                    fontSize: 13.5,
+                    color: '#8ed4a8',
+                    marginBottom: 14,
+                    padding: '10px 14px',
+                    background: 'rgba(26,92,54,0.2)',
+                    border: '1px solid rgba(142,212,168,0.2)',
+                    borderRadius: 3,
+                  }}>
+                    ✦ Todos os volumes selecionados — empréstimo será encerrado
                   </p>
                 )}
 
                 {status && (
                   <div className={`alert ${status.type === 'success' ? 'alert-success' : 'alert-error'}`}>
-                    <span>{status.type === 'success' ? '✓' : '!'}</span>
+                    <span>{status.type === 'success' ? '✦' : '⚠'}</span>
                     <span>{status.msg}</span>
                   </div>
                 )}
@@ -199,7 +262,7 @@ export default function Devolver() {
                   className="btn-primary btn-success"
                   disabled={loading || livrosSelecionados.length === 0}
                 >
-                  {loading ? 'Processando...' : 'Confirmar Devolução'}
+                  {loading ? 'Processando Devolução...' : '✦ Confirmar Devolução'}
                 </button>
               </div>
             )}

@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+
+:root {
+  --bg: #f5f0e8;
+  --bg-card: #fffdf8;
+  --bg-input: #ffffff;
+  --border: #e2d9cc;
+  --border-focus: #8b6f47;
+  --text-primary: #2c1f0e;
+  --text-secondary: #6b5740;
+  --text-muted: #9e8a74;
+  --accent: #7c4f24;
+  --accent-hover: #5e3a18;
+  --accent-light: #f0e4d4;
+  --success-bg: #edfaf0;
+  --success-text: #1a5c2e;
+  --success-border: #a3d9b3;
+  --error-bg: #fdf0f0;
+  --error-text: #7a1e1e;
+  --error-border: #f0aaaa;
+  --shadow-sm: 0 1px 3px rgba(44,31,14,0.07), 0 1px 2px rgba(44,31,14,0.05);
+  --shadow-md: 0 4px 12px rgba(44,31,14,0.08), 0 2px 6px rgba(44,31,14,0.06);
+  --shadow-lg: 0 8px 24px rgba(44,31,14,0.1), 0 4px 12px rgba(44,31,14,0.07);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* Shared page layout */
+.page-wrapper {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.page-wrapper-wide {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 28px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--accent); }
+
+/* Page header */
+.page-header {
+  margin-bottom: 32px;
+}
+.page-header h1 {
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+.page-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+}
+
+/* Form fields */
+.field { margin-bottom: 20px; }
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 7px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+}
+.field input::placeholder { color: var(--text-muted); }
+.field input:focus,
+.field select:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(124,79,36,0.1);
+}
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239e8a74' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* Submit button */
+.btn-primary {
+  width: 100%;
+  padding: 13px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(124,79,36,0.3);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 12px rgba(124,79,36,0.35);
+}
+.btn-primary:active:not(:disabled) { transform: translateY(1px); }
+.btn-primary:disabled {
+  background: #c9bfb3;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-success {
+  background: #2d7a4f;
+  box-shadow: 0 2px 8px rgba(45,122,79,0.3);
+}
+.btn-success:hover:not(:disabled) {
+  background: #1f5c3a;
+  box-shadow: 0 4px 12px rgba(45,122,79,0.35);
+}
+
+/* Alert messages */
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid;
+}
+.alert-success {
+  background: var(--success-bg);
+  color: var(--success-text);
+  border-color: var(--success-border);
+}
+.alert-error {
+  background: var(--error-bg);
+  color: var(--error-text);
+  border-color: var(--error-border);
+}
+
+/* Checkbox cards */
+.check-grid { display: grid; gap: 8px; }
+.check-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, box-shadow 0.12s;
+}
+.check-card:hover { border-color: #c4a882; box-shadow: var(--shadow-sm); }
+.check-card.checked {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.check-card input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.check-card-body { flex: 1; }
+.check-card-title { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+.check-card-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge-active { background: #e8f5ee; color: #1c5e36; }
+.badge-available { background: #e8f0fb; color: #1c3a7a; }
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+/* Helper text */
+.helper-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 7px;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+.empty-state-icon { font-size: 36px; margin-bottom: 12px; }
+.empty-state p { font-size: 15px; }
